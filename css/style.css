@@ -68,7 +68,16 @@ h3
     margin: 5px;
     padding: 1px; 
     border:1px solid black;
+}
+
+.newDIV
+{  
+    background-color: rgb(241, 194, 204);
+    border:1px solid red;
+    margin: 3px;
+    padding: 2px; 
     text-align: center;
+    float: left;
 }
 
 

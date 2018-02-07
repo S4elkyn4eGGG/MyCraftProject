@@ -1,4 +1,4 @@
-function ParentClass(name, recept, intel, lovk, sila, armor, attack) {
+function ParentClass(name, intel, lovk, sila, armor, attack, recept) {
     this.name = name;
     this.intel = intel;
     this.lovk = lovk;
