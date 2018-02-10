@@ -52,28 +52,27 @@ function spisokReceptov() {
     }
 }
 
+//Функция,подсвечивающая компоненты, нужные для выбранного рецепта
 function metka() {
-    var mass = [];
-    for(let i=0; i<newDIVmass.length; i++) {
+    let mass = [],
+        objRecept;
+    //обнуляем выбор, перекрашивая все элементы в стандартный цвет
+    for(let i = 0, j = newDIVmass.length; i < j; i++) {
         newDIVmass[i].style.backgroundColor = "rgb(241, 194, 204)";
     }
-
-    for(let i=0; i<componentsMassiv.length; i++) {
-        for(let j=0; j<componentsMassiv[i].recept.length; j++) {
-            if(componentsMassiv[i].recept[j] === selectRecept.value) {
-                mass.push(componentsMassiv[i].name);
-            }
-        } 
+    //проверяем что выбрано в категории
+    if(selectWat.value ==="Оружие") {
+        mass = weaponMassiv;
     }
-
-    for(let i=0; i<newDIVmass.length; i++) {
-        let el = document.getElementById(`newDIV${i}`);
-        for(let j=0; j<mass.length; j++) {
-            if(newDIVmass[i].textContent === mass[j]) {
-                el.style.backgroundColor = "green";
-            }
+    else {
+        mass = shmotMassiv;
+    }   
+    objRecept = mass[selectRecept.selectedIndex].recept; //присваиваем переменной свойство "recept" объекта массива, соответствующего, выбранному рецепту 
+    //проверяем, если текст компонента является вложенным в массив mass, то перекрашиваем его
+    for(let i = 0, j = components.children.length; i < j; i++) {
+        let hasOwnComponent = objRecept.indexOf(components.children[i].textContent);//возвращает индекс вхождения элемента в массив или -1, если он в него не входит
+        if(hasOwnComponent > -1) {
+            components.children[i].style.backgroundColor = 'green';
         }
     }
 }
-
-;
