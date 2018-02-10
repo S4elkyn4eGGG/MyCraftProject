@@ -8,37 +8,45 @@ components = document.getElementById("components");
 document.onload = loader();
 selectWat.addEventListener("change", spisokReceptov, false);
 selectRecept.addEventListener("change", metka, false);
+newDIVmass = document.querySelectorAll('div.newDIV')
 
+//Функция, вызывающаяся при загрузке страницы
 function loader() {
-    spisokReceptov();          
-    for(let i=0; i<componentsMassiv.length; i++) {
+    spisokReceptov();//Вызываем функцию обновляющую список рецептов
+    let fragment = document.createDocumentFragment();          
+    for(let i=0, j=componentsMassiv.length; i<j; i++) {
         let newDiv = document.createElement("div");
         newDiv.textContent = componentsMassiv[i].name;
         newDiv.className = "newDIV";
-        newDiv.id = `newDIV${i}`;
-        components.appendChild(newDiv);
-    }    
+        newDiv.id = `newDIV${i}`;        
+        fragment.appendChild(newDiv);
+        //Создаем DIV с текстом внутри, равным свойству "name" соответствующего обхекта в массиве 
+        //и присваиваем ему id newDIV + номер объекта в массиве и добавляем его во фрагмент, который потом добавим в DIV
+    } 
+    components.appendChild(fragment);   
 }
 
+//Функция, обновляющая список рецептов, при выборе категории
 function spisokReceptov() {        
-    while(selectRecept.children[0]) {
-        selectRecept.remove(selectRecept.firstChild);
-    }
+    selectRecept.innerHTML = ''; //Обнуляем список
+    let fragment = document.createDocumentFragment(); //Фрагмент, в котором будет список, чтобы при каждой итерации не обращаться к DOM объекту  
     switch(selectWat.value) {
         case 'Оружие': {                        
-            for(let i=0; i<weaponMassiv.length; i++) {
+            for(let i=0, j=weaponMassiv.length; i<j; i++) {
                 let newSelectRecept = document.createElement("option");
                 newSelectRecept.textContent = weaponMassiv[i].name;
-                selectRecept.appendChild(newSelectRecept);
+                fragment.appendChild(newSelectRecept);
             }
+            selectRecept.appendChild(fragment);
             break;
         }
         default: {       
-            for(let i=0; i<shmotMassiv.length; i++) {
+            for(let i=0, j=shmotMassiv.length; i<j; i++) {
                 let newSelectRecept = document.createElement("option");
                 newSelectRecept.textContent = shmotMassiv[i].name;
-                selectRecept.appendChild(newSelectRecept);
+                fragment.appendChild(newSelectRecept);;
             }
+            selectRecept.appendChild(fragment);
             break;
         }    
     }
@@ -68,4 +76,4 @@ function metka() {
     }
 }
 
-newDIVmass = document.querySelectorAll('div.newDIV');
+;
