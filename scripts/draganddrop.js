@@ -12,7 +12,9 @@ function draggiStart(event) {
 }
 //функция, вызываемая при окончании перетаскивания (после drop)
 function dragEnd(event) {
-    if(ifKotelBgCol) {//если дропнули в котел, то переменная будет false и ей присвоится солатовый цвет, иначе тот, который был до перетаскивания
+    `если дропнули в котел, то переменная будет false и ей присвоится солатовый цвет, 
+    иначе тот, который был до перетаскивания, за исключением, если он был в котле`
+    if(ifKotelBgCol) {
         event.target.style.backgroundColor = bgDragCol;
     }
     else {
@@ -26,10 +28,22 @@ function dragOver(event) {
 //вызывается при отпуске перетаскиваемого элемента
 function drop(event) {
     event.preventDefault();
-    if ( event.target.id === "kotel" ) {
-        let data = event.dataTransfer.getData("Text"),
-            el = document.getElementById(data);
-        event.target.appendChild(el);  
-        ifKotelBgCol = false;
+    let data = event.dataTransfer.getData("Text"),
+        el = document.getElementById(data);
+    switch(event.target.id) {
+        case 'kotel': {        
+            event.target.appendChild(el);  
+            ifKotelBgCol = false;
+            break;
+        }
+        case 'components': {            
+            if(el.parentElement.id !== 'components') {
+                event.target.appendChild(el);
+            }
+            break;
+        }
+        default: {
+            alert('Куда тыкаешь!?');
+        }
     }
 }

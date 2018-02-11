@@ -52,7 +52,9 @@ function metka() {
         newDIVmass = document.querySelectorAll('div.newDIV');
     //обнуляем выбор, перекрашивая все элементы в стандартный цвет
     for(let i = 0, j = newDIVmass.length; i < j; i++) {
-        newDIVmass[i].style.backgroundColor = "rgb(241, 194, 204)";
+        if(newDIVmass[i].parentElement.id === 'components') {
+            newDIVmass[i].style.backgroundColor = "rgb(241, 194, 204)";
+        }
     }
     //проверяем что выбрано в категории
     if(selectWat.value === "Оружие") {
