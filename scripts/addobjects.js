@@ -1,6 +1,11 @@
 var shmotMassiv = [],
     weaponMassiv = [],
-    componentsMassiv = [];
+    componentsMassiv = [],
+    selectWat = document.getElementById('selectWAT'),
+    selectRecept = document.getElementById("selectRecept"),    
+    components = document.getElementById("components"),
+    bgDragCol,//хранение цвета элемента при dragstart
+    ifKotelBgCol; //хранение промежуточного значения, для перекрашивания элемента в красный, если попал в котел и обратно в свой цвет, если drop вне котла
 
 shmotMassiv.push(new ShmotClass('Шкурка Дракона', 5, 2, 2, 10, 0, ['Кожа дракона', 'Муха', 'ЛСД', 'Семки']));
 shmotMassiv.push(new ShmotClass('В жиру Тюленя', 0, 0, 5, 15, 0, ['Волос дракона', 'Оршанская пыль', 'Два стакана', 'Семки']));

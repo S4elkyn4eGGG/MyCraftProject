@@ -1,24 +1,17 @@
-var selectWat,
-    newDIVmass,
-    components,
-    selectRecept;
-selectRecept = document.getElementById("selectRecept");    
-selectWat = document.getElementById('selectWAT');
-components = document.getElementById("components");
 document.onload = loader();
 selectWat.addEventListener("change", spisokReceptov, false);
 selectRecept.addEventListener("change", metka, false);
-newDIVmass = document.querySelectorAll('div.newDIV')
 
 //Функция, вызывающаяся при загрузке страницы
 function loader() {
     spisokReceptov();//Вызываем функцию обновляющую список рецептов
     let fragment = document.createDocumentFragment();          
-    for(let i=0, j=componentsMassiv.length; i<j; i++) {
+    for(let i = 0, j = componentsMassiv.length; i < j; i++) {
         let newDiv = document.createElement("div");
         newDiv.textContent = componentsMassiv[i].name;
         newDiv.className = "newDIV";
-        newDiv.id = `newDIV${i}`;        
+        newDiv.id = `newDIV${i}`;
+        newDiv.draggable = 'true';        
         fragment.appendChild(newDiv);
         //Создаем DIV с текстом внутри, равным свойству "name" соответствующего обхекта в массиве 
         //и присваиваем ему id newDIV + номер объекта в массиве и добавляем его во фрагмент, который потом добавим в DIV
@@ -29,10 +22,10 @@ function loader() {
 //Функция, обновляющая список рецептов, при выборе категории
 function spisokReceptov() {        
     selectRecept.innerHTML = ''; //Обнуляем список
-    let fragment = document.createDocumentFragment(); //Фрагмент, в котором будет список, чтобы при каждой итерации не обращаться к DOM объекту  
+    let fragment = document.createDocumentFragment(); //Фрагмент, в котором будет список, чтобы при каждой итерации не обращаться к DOM объекту          
     switch(selectWat.value) {
         case 'Оружие': {                        
-            for(let i=0, j=weaponMassiv.length; i<j; i++) {
+            for(let i = 0, j = weaponMassiv.length; i < j; i++) {
                 let newSelectRecept = document.createElement("option");
                 newSelectRecept.textContent = weaponMassiv[i].name;
                 fragment.appendChild(newSelectRecept);
@@ -41,7 +34,7 @@ function spisokReceptov() {
             break;
         }
         default: {       
-            for(let i=0, j=shmotMassiv.length; i<j; i++) {
+            for(let i = 0, j = shmotMassiv.length; i < j; i++) {
                 let newSelectRecept = document.createElement("option");
                 newSelectRecept.textContent = shmotMassiv[i].name;
                 fragment.appendChild(newSelectRecept);;
@@ -55,13 +48,14 @@ function spisokReceptov() {
 //Функция,подсвечивающая компоненты, нужные для выбранного рецепта
 function metka() {
     let mass = [],
-        objRecept;
+        objRecept,
+        newDIVmass = document.querySelectorAll('div.newDIV');
     //обнуляем выбор, перекрашивая все элементы в стандартный цвет
     for(let i = 0, j = newDIVmass.length; i < j; i++) {
         newDIVmass[i].style.backgroundColor = "rgb(241, 194, 204)";
     }
     //проверяем что выбрано в категории
-    if(selectWat.value ==="Оружие") {
+    if(selectWat.value === "Оружие") {
         mass = weaponMassiv;
     }
     else {
