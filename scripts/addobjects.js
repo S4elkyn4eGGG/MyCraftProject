@@ -4,6 +4,8 @@ var shmotMassiv = [],
     selectWat = document.getElementById('selectWAT'),
     selectRecept = document.getElementById("selectRecept"),    
     components = document.getElementById("components"),
+    kotel = document.getElementById("kotel"),
+    botDiv = document.getElementById("ready"),
     bgDragCol,//хранение цвета элемента при dragstart
     ifKotelBgCol; //хранение промежуточного значения, для перекрашивания элемента в красный, если попал в котел и обратно в свой цвет, если drop вне котла
 

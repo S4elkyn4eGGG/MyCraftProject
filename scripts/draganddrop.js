@@ -20,6 +20,7 @@ function dragEnd(event) {
     else {
         event.target.style.backgroundColor = 'rgb(160, 177, 157)';
     }
+    finalCraft();
 }
 //вызывается при наведении перетаскиваемого элемента на некий другой элемент
 function dragOver(event) {
@@ -47,3 +48,4 @@ function drop(event) {
         }
     }
 }
+

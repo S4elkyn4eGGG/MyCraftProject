@@ -2,6 +2,50 @@ document.onload = loader();
 selectWat.addEventListener("change", spisokReceptov, false);
 selectRecept.addEventListener("change", metka, false);
 
+//Функция, собирающая и выводящая собранную вещь
+function finalCraft(){
+    let mass = shmotMassiv.concat(weaponMassiv),       
+        mbBreak = false;
+    //берем все массивы с объектами сборок    
+    for(let i = 0, j = mass.length; i < j; i++) {
+        let  fragment = document.createDocumentFragment();            
+        if(mbBreak) {           
+            break;
+        }
+        //проверяем все элементы в котле, если какой-либо есть в рецепте текущего объекта - создаем элемент равный этому компоненту и добавляем его во фрагмент
+        for(let k = 0, m = kotel.children.length; k < m; k++) {
+            if(mass[i].recept.indexOf(kotel.children[k].textContent) > -1) {
+                let el = document.createElement('div');
+                el.textContent = kotel.children[k].textContent;
+                el.className = "newDIV";
+                el.id = kotel.children[k].id;
+                el.draggable = 'true';  
+                fragment.appendChild(el);
+            }
+            //если во фрагменте столько же элементов, сколько в рецепте текущего объекта, 
+            //создаем новый элемент DIV с текстом имени этого рецепта и добавляем в нужный DIV
+            //компоненты, понадобившиеся для сборки рецепта добавляем обратно в форму компонентов
+            if(fragment.children.length === mass[i].kolComp()) {
+                el = document.createElement('div');
+                el.textContent = mass[i].name;
+                el.className = "newRec";
+                components.appendChild(fragment);
+                botDiv.appendChild(el);
+                mbBreak = true; 
+                //удаляем все компоненты, понадобившиеся для сборки рецепта из котла             
+                for(let o = 0, l = kotel.children.length; o < l; o++) {
+                    if(kotel.children[o]) {
+                        if(mass[i].recept.indexOf(kotel.children[o].textContent) > -1) {   
+                            kotel.children[o].remove();  
+                            --o;               
+                        }
+                    }
+                }
+                break;
+            }
+        }
+    }
+}
 //Функция, вызывающаяся при загрузке страницы
 function loader() {
     spisokReceptov();//Вызываем функцию обновляющую список рецептов
